@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -o errexit
+
 DEBUILD_TREE=`pwd`
 
 sudo apt-get install -y --force-yes \
@@ -14,7 +16,7 @@ sudo apt-get install -y --force-yes \
     python-numpy subversion
 
 # dpkg-buildpackage seems to require the pip version or something.
-sudo apt-get remove python-setuptools
+sudo apt-get remove -y python-setuptools
 
 mkdir -p $HOME/packages/gdal
 cd $HOME/packages
@@ -27,4 +29,6 @@ if test ! -d gdal ; then
   cd gdal
   ln -s $DEBUILD_TREE/debian
 fi
+
+echo "Setup appears to be successful."
 
