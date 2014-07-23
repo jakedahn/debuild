@@ -3,7 +3,8 @@
 set -o errexit
 set -o xtrace
 
-VERSION=1.8.4s
+SETH=s
+VERSION=1.8.4
 
 if test `lsb_release -c | cut -f 2` != 'precise' ; then
   echo "Not running on Ubuntu precise, shouldn't you be?"
@@ -26,11 +27,11 @@ PACKAGING=$1
 
 DEBUILD_TREE=`pwd`
 
-FLANN_TGZ=flann-${VERSION}-src.tgz
+FLANN_TGZ=flann-${VERSION}${SETH}-src.tgz
 FLANN_SRC=`basename $FLANN_TGZ -src.tgz`
 
 # only download flann tgz if we haven't already
-if [ ! -f $FLANN_TGZ ]; then
+if [ ! -f $FLANN_TGZ -o "x$CLEAN" = "xYES" ]; then
   cp ~/$FLANN_TGZ .
   # if we download a new TGZ, make sure the old unziped version was deleted
   rm -rf $FLANN_SRC
@@ -72,6 +73,7 @@ mkdir -p $PREP_TREE/usr
 make install
 
 cd ..
+
 
 mkdir -p debwrk/DEBIAN
 sed 's/@@@PACKAGING@@@/'$PACKAGING'/g' control.debian \
