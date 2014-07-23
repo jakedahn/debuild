@@ -11,7 +11,7 @@ sudo apt-get install -y --force-yes \
     unixodbc-dev libgif-dev libgeos-dev libmysqlclient-dev \
     libsqlite3-dev libdap-dev libxml2-dev libspatialite-dev \
     libhdf4-alt-dev libhdf5-serial-dev libpq-dev libxerces-c-dev \
-    python-numpy
+    python-numpy subversion
 
 # dpkg-buildpackage seems to require the pip version or something.
 sudo apt-get remove python-setuptools
@@ -23,7 +23,7 @@ if test ! -d gdal ; then
 fi
 cd gdal
 if test ! -d gdal ; then
-  svn checkout http://svn.osgeo.org/gdal/trunk/gdal
+  svn checkout http://svn.osgeo.org/gdal/branches/1.11/gdal
   cd gdal
   ln -s $DEBUILD_TREE/debian
 fi
