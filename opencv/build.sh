@@ -2,7 +2,8 @@
 
 set -o errexit
 
-VERSION=2.4.6.1s
+VERSION=2.4.6.1
+SETH=s
 
 if test `lsb_release -c | cut -f 2` != 'precise' ; then
   echo "Not running on Ubuntu precise, shouldn't you be?"
@@ -25,7 +26,7 @@ PACKAGING=$1
 
 DEBUILD_TREE=`pwd`
 
-OPENCV_URL=/home/ubuntu/opencv-$VERSION.tar.gz
+OPENCV_URL=/home/ubuntu/opencv-${VERSION}${SETH}.tar.gz
 
 OPENCV_TGZ=`basename $OPENCV_URL`
 OPENCV_SRC=`basename $OPENCV_TGZ .tar.gz`
