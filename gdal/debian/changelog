@@ -1,3 +1,27 @@
+gdal (1.11.0-15pl) precise; urgency=high
+
+  * Pick up libcurl .netrc support (r27007).
+
+ -- Frank Warmerdam <warmerdam@pobox.com>  Fri, 05 Jul 2013 11:47:36 -0400
+
+gdal (1.11.0-14pl) precise; urgency=high
+
+  * RPC Convergence fix (Bug #5395), and catch up.
+
+ -- Frank Warmerdam <warmerdam@pobox.com>  Fri, 05 Jul 2013 11:47:36 -0400
+
+gdal (1.11.0-13pl) precise; urgency=high
+
+  * VRT relative fix, general catch up.
+
+ -- Frank Warmerdam <warmerdam@pobox.com>  Fri, 05 Jul 2013 11:47:36 -0400
+
+gdal (1.11.0-12pl) precise; urgency=high
+
+  * Incporate GDALGCPsToGeoTransform() improvement.
+
+ -- Frank Warmerdam <warmerdam@pobox.com>  Fri, 05 Jul 2013 11:47:36 -0400
+
 gdal (1.11.0-11pl) precise; urgency=high
 
   * Force complete rebuild.
