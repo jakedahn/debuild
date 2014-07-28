@@ -1,15 +1,10 @@
 #!/bin/sh
 
-for test_dir in /vagrant/debs ../debs $HOME/debuild/debs ; do
-  if [ -d $test_dir ] ; then
-    # change this to use rsync eventually.
-    echo rsync .deb files...
-    rsync -vt $test_dir/*.deb ubuntu@apt.notprod.pl:www/binary/precise
+set -o errexit
+set -o xtrace
 
-    echo "refresh catalog"
-    ssh ubuntu@apt.notprod.pl ./refresh.sh
-    exit 0
-  fi
-done
+scp $HOME/debs/*.deb staging@pkg.planet-staging.com:~/
 
-echo Unable to find "debs" directory to upload, nothing done.
+ssh staging@pkg.planet-staging.com './sync_staging.sh'
+
+curl -X POST -n https://jobs.planet-staging.com/v0/workers/trigger_update
