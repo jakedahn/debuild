@@ -1,0 +1,10 @@
+Package: wjelement-pl
+Version: @@@VERSION@@@-@@@PACKAGING@@@
+Architecture: amd64
+Maintainer: Frank Warmerdam <warmerdam@pobox.com>
+Installed-Size: 755
+Depends: libstdc++6
+Section: science
+Priority: extra
+Description: C++ JSON Library with Validator
+
