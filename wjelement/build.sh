@@ -3,7 +3,7 @@
 set -o errexit
 set -o xtrace
 
-VERSION=1.0.0
+VERSION=1.0.1
 PREP_TREE=`pwd`/debwrk
 
 if test `lsb_release -c | cut -f 2` != 'precise' ; then
