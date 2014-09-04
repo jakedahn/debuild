@@ -28,6 +28,7 @@ PACKAGING=$1
 DEB=wjelement-pl_${VERSION}-${PACKAGING}_amd64.deb
 
 cd wjelement
+git pull
 
 if test ! -f Makefile -o "$CLEAN" = "YES" ; then
   cmake \
