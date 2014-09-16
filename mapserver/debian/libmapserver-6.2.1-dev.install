@@ -1,0 +1,4 @@
+usr/bin/mapserver-config
+usr/include/mapserver/*
+usr/lib/*/libmapserver.la
+usr/lib/*/libmapserver.so

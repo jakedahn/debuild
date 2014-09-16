@@ -1,0 +1,68 @@
+# translation of mapserver.po to TAMIL
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Dr.T.Vasudevan <agnihot3@gmail.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: mapserver\n"
+"Report-Msgid-Bugs-To: pkg-grass-devel@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2007-06-15 15:55+0200\n"
+"PO-Revision-Date: 2007-07-23 21:49+0530\n"
+"Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
+"Language-Team: TAMIL <ubuntu-l10n-tam@lists.ubuntu.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:1001
+#, fuzzy
+#| msgid "Should ${extname} support be added for ${sapiconfig}?"
+msgid "Should ${extname} be added to /etc/php5/${sapiconfig}/php.ini?"
+msgstr "${extname} ஆதரவு ${sapiconfig} க்கு சேர்க்கப்பட வேண்டுமா?"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:1001
+#, fuzzy
+#| msgid ""
+#| "You are installing ${extname} support for PHP5, but it is not yet enabled "
+#| "in /etc/php5/${sapiconfig}/php.ini. Enabling this extension will allow "
+#| "PHP5 scripts to use it."
+msgid ""
+"You are installing ${extname} support for php5 and it is not yet enabled in "
+"the configuration for the ${sapiconfig} SAPI. Enabling this extension will "
+"allow php5 scripts to use it."
+msgstr ""
+"நீங்கள் ${extname} ஐ PHP5 ஆதரவுக்காக நிறுவுகிறீர்கள், அது /etc/php5/${sapiconfig}/"
+"php.ini இல் இன்னும் இயலுமைப்படுத்தப்படவில்லை. இந்த நீட்சியை செயல்படுத்துவது  PHP5 "
+"ஸ்கிரிப்ட் களை அதை பயன்படுத்த அனுமதிக்கும்."
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:2001
+#, fuzzy
+#| msgid "Should ${extname} support be removed for ${sapiconfig}?"
+msgid "Should ${extname} be removed from /etc/php5/${sapiconfig}/php.ini?"
+msgstr "${extname} ஆதரவு ${sapiconfig} க்கு நீக்கப்பட வேண்டுமா?"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:2001
+#, fuzzy
+#| msgid ""
+#| "You are removing ${extname} support for PHP5, but it is still enabled in /"
+#| "etc/php5/${sapiconfig}/php.ini. Leaving this in place will probably cause "
+#| "problems when trying to use PHP."
+msgid ""
+"You are removing ${extname} support for php5, but it is still enabled in the "
+"configuration for the ${sapiconfig} SAPI.  Leaving this in place will "
+"probably cause problems when trying to use PHP."
+msgstr ""
+"நீங்கள் ${extname} ஆதரவை PHP5 க்கு நீக்குகிறீர்கள், ஆனால் அது /etc/php5/${sapiconfig}/"
+"php.ini இல் இன்னமும் உள்ளது. இதை அப்படியே விடுவது  PHP ஐ பயன்படுத்தும்போது "
+"பிரச்சினைகளை உண்டாக்கக் கூடும்."

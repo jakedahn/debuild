@@ -1,0 +1,14 @@
+Description: Fix mapscriptvars to send the right argument to ld.
+Author: Jerome Villeneuve Larouche <jlarouche@mapgears.com>
+Last-Update: 2012-11-15
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -415,7 +415,7 @@ mapscriptvars:	Makefile
+ 	echo $(IGNORE_MISSING_DATA) $(USE_POINT_Z_M) $(STRINGS) @ALL_ENABLED@ >> mapscriptvars
+ 	echo -I. $(PROJ_INC) $(GD_INC) $(TTF_INC) $(JPEG_INC) $(SDE_INC) $(OGR_INC) $(GDAL_INC) $(GEOS_INC) >> mapscriptvars
+ 	echo $(LIBMAP) >> mapscriptvars
+-	echo $(EXE_LDFLAGS) >> mapscriptvars
++	echo -Wl,$(EXE_LDFLAGS) >> mapscriptvars
+ 	grep '#define MS_VERSION ' mapserver.h >> mapscriptvars
+ 
+ mapserver-config: Makefile

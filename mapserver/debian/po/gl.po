@@ -1,0 +1,52 @@
+# Galician translation of mapserver's debconf templates
+# This file is distributed under the same license as the mapserver package.
+# Jacobo Tarrio <jtarrio@debian.org>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mapserver\n"
+"Report-Msgid-Bugs-To: pkg-grass-devel@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2007-06-15 15:55+0200\n"
+"PO-Revision-Date: 2007-10-24 22:23+0100\n"
+"Last-Translator: Jacobo Tarrio <jtarrio@debian.org>\n"
+"Language-Team: Galician <proxecto@trasno.net>\n"
+"Language: gl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:1001
+msgid "Should ${extname} be added to /etc/php5/${sapiconfig}/php.ini?"
+msgstr "¿Debe engadirse ${extname} a /etc/php5/${sapiconfig}/php.ini?"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:1001
+msgid ""
+"You are installing ${extname} support for php5 and it is not yet enabled in "
+"the configuration for the ${sapiconfig} SAPI. Enabling this extension will "
+"allow php5 scripts to use it."
+msgstr ""
+"Está a instalar o soporte de ${extname} para php5, pero aínda non está "
+"activado na configuración da SAPI ${sapiconfig}. Activar esta extensión ha "
+"permitir que os scripts php5 a empreguen."
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:2001
+msgid "Should ${extname} be removed from /etc/php5/${sapiconfig}/php.ini?"
+msgstr "¿Debe eliminarse ${extname} de /etc/php5/${sapiconfig}/php.ini?"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:2001
+msgid ""
+"You are removing ${extname} support for php5, but it is still enabled in the "
+"configuration for the ${sapiconfig} SAPI.  Leaving this in place will "
+"probably cause problems when trying to use PHP."
+msgstr ""
+"Está a eliminar o soporte de ${extname} para php5, pero aínda está activado "
+"na configuración da SAPI ${sapiconfig}. Deixalo activado seguramente vaia "
+"causar problemas se tenta empregar PHP."

@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -e
+
+# Source debconf library.
+. /usr/share/debconf/confmodule
+
+#DEBHELPER#
+
+if [ "$1" != "configure" ]; then
+	exit 0
+fi
+
+phpver=php5
+
+for SAPI in apache apache2
+do
+	if [ -f /etc/$phpver/$SAPI/php.ini ] && [ -e /etc/$phpver/$SAPI/conf.d ]; then
+		db_get $phpver/extension_mapscript_$SAPI
+		if [ "$RET" = "true" -a ! -f /etc/$phpver/$SAPI/conf.d/mapscript.ini ]; then
+			echo "extension=php_mapscript.so" > /etc/$phpver/$SAPI/conf.d/mapscript.ini
+		fi
+	fi
+done
+
+exit 0

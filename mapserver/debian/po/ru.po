@@ -1,0 +1,56 @@
+# translation of ru.po to Russian
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Yuri Kozlov <kozlov.y@gmail.com>, 2007, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: mapserver 5.0.3-3\n"
+"Report-Msgid-Bugs-To: pkg-grass-devel@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2007-06-15 15:55+0200\n"
+"PO-Revision-Date: 2008-11-06 19:33+0300\n"
+"Last-Translator: Yuri Kozlov <kozlov.y@gmail.com>\n"
+"Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:1001
+msgid "Should ${extname} be added to /etc/php5/${sapiconfig}/php.ini?"
+msgstr "Добавить ${extname} в /etc/php5/${sapiconfig}/php.ini?"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:1001
+msgid ""
+"You are installing ${extname} support for php5 and it is not yet enabled in "
+"the configuration for the ${sapiconfig} SAPI. Enabling this extension will "
+"allow php5 scripts to use it."
+msgstr ""
+"Вы устанавливаете поддержку ${extname} в php5, но пока она не включена в "
+"настройках ${sapiconfig} SAPI. Включение этого расширения позволит сценариям "
+"php5 его использовать."
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:2001
+msgid "Should ${extname} be removed from /etc/php5/${sapiconfig}/php.ini?"
+msgstr "Удалить ${extname} из /etc/php5/${sapiconfig}/php.ini?"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:2001
+msgid ""
+"You are removing ${extname} support for php5, but it is still enabled in the "
+"configuration for the ${sapiconfig} SAPI.  Leaving this in place will "
+"probably cause problems when trying to use PHP."
+msgstr ""
+"Вы удаляете поддержку ${extname} из php5, но она всё ещё включена в "
+"настройках ${sapiconfig} SAPI. Оставление файла в таком состоянии, вероятно, "
+"приведёт к проблемам при использовании PHP."

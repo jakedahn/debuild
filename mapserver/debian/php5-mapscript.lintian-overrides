@@ -1,0 +1,3 @@
+# The maintainer scripts embed a variable in the template name
+php5-mapscript: unused-debconf-template php5-mapscript/add_extension
+php5-mapscript: unused-debconf-template php5-mapscript/remove_extension

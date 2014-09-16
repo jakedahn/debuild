@@ -1,0 +1,2 @@
+version=2
+http://download.osgeo.org/mapserver/ (?:.*/)?mapserver-?_?([\d+\.]+|\d+)\.tar.* debian uupdate

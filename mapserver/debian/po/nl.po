@@ -1,0 +1,72 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mapserver\n"
+"Report-Msgid-Bugs-To: pkg-grass-devel@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2007-06-15 15:55+0200\n"
+"PO-Revision-Date: 2007-07-31 09:33+0100\n"
+"Last-Translator: Bart Cornelis <cobaco@skolelinux.no>\n"
+"Language-Team: debian-l10n-dutch <debian-l10n-dutch@lists.debian.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Dutch\n"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:1001
+#, fuzzy
+#| msgid "Should ${extname} support be added for ${sapiconfig}?"
+msgid "Should ${extname} be added to /etc/php5/${sapiconfig}/php.ini?"
+msgstr ""
+"Wilt u dat ${extname}-ondersteuning toegevoegd wordt voor ${sapiconfig}?"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:1001
+#, fuzzy
+#| msgid ""
+#| "You are installing ${extname} support for PHP5, but it is not yet enabled "
+#| "in /etc/php5/${sapiconfig}/php.ini. Enabling this extension will allow "
+#| "PHP5 scripts to use it."
+msgid ""
+"You are installing ${extname} support for php5 and it is not yet enabled in "
+"the configuration for the ${sapiconfig} SAPI. Enabling this extension will "
+"allow php5 scripts to use it."
+msgstr ""
+"U bent bezig ${extname}-ondersteuning te installeren voor PHP5. Dit is "
+"echter nog niet geactiveerd in het configuratiebestand /etc/php5/"
+"${sapiconfig}/php.ini . Activeren van deze extensie laat php5-scripts toe om "
+"de extentie te gebruiken."
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:2001
+#, fuzzy
+#| msgid "Should ${extname} support be removed for ${sapiconfig}?"
+msgid "Should ${extname} be removed from /etc/php5/${sapiconfig}/php.ini?"
+msgstr ""
+"Wilt u dat ${extname}-ondersteuning verwijderd wordt voor ${sapiconfig}?"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:2001
+#, fuzzy
+#| msgid ""
+#| "You are removing ${extname} support for PHP5, but it is still enabled in /"
+#| "etc/php5/${sapiconfig}/php.ini. Leaving this in place will probably cause "
+#| "problems when trying to use PHP."
+msgid ""
+"You are removing ${extname} support for php5, but it is still enabled in the "
+"configuration for the ${sapiconfig} SAPI.  Leaving this in place will "
+"probably cause problems when trying to use PHP."
+msgstr ""
+"U bent bezig om ${extname}-ondersteuning voor php5 te verwijderen. Dit is "
+"echter nog steeds geactiveerd in het configuratiebestand /etc/php5/"
+"${sapiconfig}/php.ini . Als u dit laat staan zal dit waarschijnlijk "
+"problemen veroorzaken wanneer u probeert om PHP te gebruiken."

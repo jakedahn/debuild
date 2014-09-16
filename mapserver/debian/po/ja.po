@@ -1,0 +1,53 @@
+# Japanese debconf templates translation for mapserver.
+# Copyright (C) 2007-2009 Debian GIS Project <pkg-grass-devel@lists.alioth.debian.org>
+# This file is distributed under the same license as the mapserver package.
+# Noritada Kobayashi <noritadak@gmail.com>, 2007.
+# Hideki Yamane (Debian-JP) <henrich@debian.or.jp>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: mapserver 5.0.3-3\n"
+"Report-Msgid-Bugs-To: pkg-grass-devel@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2007-06-15 15:55+0200\n"
+"PO-Revision-Date: 2009-01-05 22:44+0900\n"
+"Last-Translator: Hideki Yamane (Debian-JP) <henrich@debian.or.jp>\n"
+"Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:1001
+msgid "Should ${extname} be added to /etc/php5/${sapiconfig}/php.ini?"
+msgstr "${extname} を /etc/php5/${sapiconfig}/php.ini に追加しますか?"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:1001
+msgid ""
+"You are installing ${extname} support for php5 and it is not yet enabled in "
+"the configuration for the ${sapiconfig} SAPI. Enabling this extension will "
+"allow php5 scripts to use it."
+msgstr ""
+"$php5 に {extname} サポートをインストールしてありますが、この拡張機能は "
+"${sapiconfig} SAPI の設定ではまだ有効になっていません。有効にすると php5 スク"
+"リプトが拡張機能を使用できるようになります。"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:2001
+msgid "Should ${extname} be removed from /etc/php5/${sapiconfig}/php.ini?"
+msgstr "${extname} を /etc/php5/${sapiconfig}/php.ini から削除しますか?"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:2001
+msgid ""
+"You are removing ${extname} support for php5, but it is still enabled in the "
+"configuration for the ${sapiconfig} SAPI.  Leaving this in place will "
+"probably cause problems when trying to use PHP."
+msgstr ""
+"php5 から ${extname} のサポートを削除していますが、この拡張機能は "
+"${sapiconfig} SAPI の設定でまだ有効になっています。このまま有効のままにしてお"
+"くと、おそらく PHP を使用しようとする際に問題が生じるでしょう。"

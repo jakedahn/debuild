@@ -1,0 +1,38 @@
+Index: mapserver/Makefile.in
+===================================================================
+--- mapserver.orig/Makefile.in	2013-08-21 15:24:27.773596968 -0400
++++ mapserver/Makefile.in	2013-08-21 15:24:50.341596714 -0400
+@@ -282,7 +282,7 @@
+ 				maptree.$(OBJ_SUFFIX) mapsearch.$(OBJ_SUFFIX) mapstring.$(OBJ_SUFFIX) mapsymbol.$(OBJ_SUFFIX) mapfile.$(OBJ_SUFFIX) maplegend.$(OBJ_SUFFIX) maputil.$(OBJ_SUFFIX) \
+ 				mapscale.$(OBJ_SUFFIX) mapquery.$(OBJ_SUFFIX) maplabel.$(OBJ_SUFFIX) maperror.$(OBJ_SUFFIX) mapprimitive.$(OBJ_SUFFIX) mapproject.$(OBJ_SUFFIX) mapraster.$(OBJ_SUFFIX) \
+ 				mapsde.$(OBJ_SUFFIX) mapogr.$(OBJ_SUFFIX) mappostgis.$(OBJ_SUFFIX) maplayer.$(OBJ_SUFFIX) mapresample.$(OBJ_SUFFIX) mapwms.$(OBJ_SUFFIX) \
+-				mapwmslayer.$(OBJ_SUFFIX) maporaclespatial.$(OBJ_SUFFIX) mapgml.$(OBJ_SUFFIX) mapprojhack.$(OBJ_SUFFIX) mapthread.$(OBJ_SUFFIX) mapdraw.$(OBJ_SUFFIX) \
++				mapwmslayer.$(OBJ_SUFFIX) mapgml.$(OBJ_SUFFIX) mapprojhack.$(OBJ_SUFFIX) mapthread.$(OBJ_SUFFIX) mapdraw.$(OBJ_SUFFIX) \
+ 				mapgd.$(OBJ_SUFFIX) mapagg.$(OBJ_SUFFIX) mapoutput.$(OBJ_SUFFIX) mapgdal.$(OBJ_SUFFIX) mapimagemap.$(OBJ_SUFFIX) mapows.$(OBJ_SUFFIX) mapwfs.$(OBJ_SUFFIX) \
+ 				mapwfs11.$(OBJ_SUFFIX) mapwfslayer.$(OBJ_SUFFIX) mapcontext.$(OBJ_SUFFIX) maphttp.$(OBJ_SUFFIX) mapdrawgdal.$(OBJ_SUFFIX) mapjoin.$(OBJ_SUFFIX) mapgraticule.$(OBJ_SUFFIX) \
+ 				mapcopy.$(OBJ_SUFFIX) mapogcfilter.$(OBJ_SUFFIX) mapogcsld.$(OBJ_SUFFIX) maptime.$(OBJ_SUFFIX) mapwcs.$(OBJ_SUFFIX) mapwcs11.$(OBJ_SUFFIX) mapcpl.$(OBJ_SUFFIX) cgiutil.$(OBJ_SUFFIX) \
+Index: mapserver/maplayer.c
+===================================================================
+--- mapserver.orig/maplayer.c	2013-06-17 14:37:03.912065096 -0400
++++ mapserver/maplayer.c	2013-08-21 15:26:01.513595914 -0400
+@@ -1473,7 +1473,7 @@
+       return(msRASTERLayerInitializeVirtualTable(layer));
+       break;
+     case(MS_ORACLESPATIAL):
+-      return(msOracleSpatialLayerInitializeVirtualTable(layer));
++      msSetError(MS_MISCERR, "You choose oraclespatial. Please use the plugin CONNECTIONTYPE with libmsplugin-oracle.", "msInitializeVirtualTable()");
+       break;
+     case(MS_WFS):
+       return(msWFSLayerInitializeVirtualTable(layer));
+Index: mapserver/mapserver.h
+===================================================================
+--- mapserver.orig/mapserver.h	2013-08-21 15:27:01.725595237 -0400
++++ mapserver/mapserver.h	2013-08-21 15:27:11.777595124 -0400
+@@ -2226,7 +2226,6 @@
+   MS_DLL_EXPORT int msSDELayerInitializeVirtualTable(layerObj *layer);
+   MS_DLL_EXPORT int msOGRLayerInitializeVirtualTable(layerObj *layer);
+   MS_DLL_EXPORT int msPostGISLayerInitializeVirtualTable(layerObj *layer);
+-  MS_DLL_EXPORT int msOracleSpatialLayerInitializeVirtualTable(layerObj *layer);
+   MS_DLL_EXPORT int msWFSLayerInitializeVirtualTable(layerObj *layer);
+   MS_DLL_EXPORT int msGraticuleLayerInitializeVirtualTable(layerObj *layer);
+   MS_DLL_EXPORT int msRASTERLayerInitializeVirtualTable(layerObj *layer);

@@ -1,0 +1,15 @@
+Description: Fix segfault in ms_newMapObjFromString (PHP/MapScript).
+Author: Alan Boudreault <aboudreault@mapgears.com>
+Applied-Upstream: 6.2.2, https://github.com/mapserver/mapserver/commit/dc3915db24d73d00e188c0537476eac6639853a6
+Last-Update: 2013-06-14
+--- a/mapscript/php/php_mapscript.c
++++ b/mapscript/php/php_mapscript.c
+@@ -169,7 +169,7 @@
+   map = mapObj_newFromString(string, path);
+ 
+   if (map == NULL) {
+-    mapscript_throw_mapserver_exception("Failed to open map file \"%s\", or map file error." TSRMLS_CC,  string);
++    mapscript_throw_mapserver_exception("Error while loading map file from string." TSRMLS_CC);
+     return;
+   }
+ 

@@ -1,0 +1,103 @@
+Description: Add support for hardening build flags.
+Author: Bas Couwenberg <sebastic@xs4all.nl>
+Last-Update: 2013-06-30
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -254,6 +254,11 @@ FLAGS = @DEBUG_FLAGS@ $(DEFINES) $(INCLU
+ 
+ CFLAGS   = @CFLAGS@ $(FLAGS)
+ CXXFLAGS = @CXXFLAGS@ $(FLAGS)
++LDFLAGS = @LDFLAGS@
++
++HARDENING_FLAGS = @CFLAGS@ @LDFLAGS@
++
++LINK+=$(LDFLAGS)
+ 
+ # Link flags and shared libs only
+ SUP_LIBS =  $(FT_LIB) $(GD_LIB) $(OGL_LIB) $(FTGL_LIB) $(PROJ_LIBS) \
+@@ -417,6 +422,7 @@ mapscriptvars:	Makefile
+ 	echo $(LIBMAP) >> mapscriptvars
+ 	echo -Wl,$(EXE_LDFLAGS) >> mapscriptvars
+ 	grep '#define MS_VERSION ' mapserver.h >> mapscriptvars
++	echo $(HARDENING_FLAGS) >> mapscriptvars
+ 
+ mapserver-config: Makefile
+ 	rm -f mapserver-config
+--- a/mapscript/perl/Makefile.PL.in
++++ b/mapscript/perl/Makefile.PL.in
+@@ -1,5 +1,6 @@
+ # File : Makefile.PL
+ use ExtUtils::MakeMaker;
++use Config;
+ 
+ open(STREAM, '../../mapscriptvars') or die('Unable to open mapscriptvars, have you built the MapServer yet?'); 
+ 
+@@ -33,10 +34,14 @@ if ($ms_version_line) {
+ # Default is 4.3
+ else { $ms_version = '4.3'; }
+ 
++$hardening_flags = <STREAM>;
++chomp $hardening_flags;
++
+ print $inc."\n";
+ print $libs."\n";
+ print $static_libs."\n";
+ print $ms_version."\n";
++print $hardening_flags."\n";
+ 
+ my $swigInterfaceFile = "../mapscript.i";
+ my $swigWrapperFile   = "mapscript_wrap.c";
+@@ -75,6 +80,8 @@ WriteMakefile(
+ 	      'DEFINE' 		=> $define,
+ 	      'INC' 		=> $inc,
+ 	      'LIBS' 		=> [$libs,$static_libs],
++	      'OPTIMIZE' 	=> $hardening_flags,
++	      'LD'	 	=> "$Config{ld} $hardening_flags",
+ 	      'OBJECT' 		=> 'mapscript_wrap.o',
+ 		  'VERSION' 	=> $ms_version
+ 	      );
+--- a/mapscript/php/Makefile.in
++++ b/mapscript/php/Makefile.in
+@@ -58,6 +58,7 @@ XTRALIBS= @XTRALIBS@
+ RUNPATHS= -rpath $(libdir)
+ 
+ CFLAGS = @CFLAGS@ @USE_PHP_REGEX@ -DCOMPILE_DL=1 @PHP_VERSION_FLAG@
++LDFLAGS=@LDFLAGS@
+ 
+ 
+ PHP_INC = `$(PHPCONFIG) --includes ` @APACHE_INC@
+@@ -88,7 +89,7 @@ PHP_EXT_DIR=`$(PHPCONFIG) --extension-di
+ 
+ LT_LDFLAGS=-rpath $(PHP_EXT_DIR) -module
+ OBJ_SUFFIX=lo
+-LINK=$(LTLD) $(LD) $(LT_LDFLAGS)
++LINK=$(LTLD) $(LD) $(LDFLAGS) $(LT_LDFLAGS)
+ MS_LIBS =   ../../libmapserver.la
+ 
+ MS_VERSION = @MS_VERSION@
+--- a/mapscript/python/Makefile.in
++++ b/mapscript/python/Makefile.in
+@@ -29,10 +29,11 @@ PYINCDIR=`$(PYTHON) -c "from distutils.s
+ RUNPATH= -rpath $(PYLIBDIR)
+ DEFINES=@ALL_ENABLED@
+ CFLAGS = $(DEFINES) @CFLAGS@ -I$(PYINCDIR) @MS_INC@ @ALL_INC@
++LDFLAGS=@LDFLAGS@
+ 
+ LT_LDFLAGS= $(RUNPATH) -module
+ OBJ_SUFFIX=lo
+-LINK=$(LTLD) $(LD) $(LT_LDFLAGS)
++LINK=$(LTLD) $(LD) $(LDFLAGS) $(LT_LDFLAGS)
+ MS_LIB =   $(top_builddir)/libmapserver.la
+ 
+ 
+--- a/mapscript/ruby/extconf.rb
++++ b/mapscript/ruby/extconf.rb
+@@ -14,7 +14,7 @@ MAPSERVER_LOCAL_LIBS=Pathname.new(File.d
+ 
+ # $CFLAGS works only with 1.8 ??? -> the -Wall argument is not needed !!!
+ $CFLAGS = ""
+-$CPPFLAGS = make_inc + " -idirafter $(rubylibdir)/$(arch) " + make_define
++$CPPFLAGS += make_inc + " -idirafter $(rubylibdir)/$(arch) " + make_define
+ $LDFLAGS += " -fPIC -Wl,-rpath,#{MAPSERVER_LOCAL_LIBS}"
+ #$LOCAL_LIBS += " -L../../.libs/ " + " -lmapserver " + make_static_libs
+ $LOCAL_LIBS += " -L#{MAPSERVER_LOCAL_LIBS} " + " -lmapserver "

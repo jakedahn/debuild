@@ -1,0 +1,16 @@
+Description: Handle Content-Type HTTP headers with a charset appended.
+Author: Bas Couwenberg <sebastic@xs4all.nl>
+Bug: https://github.com/mapserver/mapserver/pull/4663
+Applied-Upstream: 6.2.2, https://github.com/mapserver/mapserver/commit/72a9a19831c2e434e7beb0fc55acadbfdc26cfd1
+Last-Update: 2013-06-04
+--- a/mapows.c
++++ b/mapows.c
+@@ -95,7 +95,7 @@ static int msOWSPreParseRequest(cgiReque
+                                 owsRequestObj *ows_request)
+ {
+   /* decide if KVP or XML */
+-  if (request->type == MS_GET_REQUEST || (request->type == MS_POST_REQUEST && strcmp(request->contenttype, "application/x-www-form-urlencoded")==0)) {
++  if (request->type == MS_GET_REQUEST || (request->type == MS_POST_REQUEST && strncmp(request->contenttype, "application/x-www-form-urlencoded", strlen("application/x-www-form-urlencoded")) == 0)) {
+     int i;
+     /* parse KVP parameters service, version and request */
+     for (i = 0; i < request->NumParams; ++i) {

@@ -1,0 +1,204 @@
+#!/usr/bin/make -f
+# Made with the aid of debmake, by Christoph Lameter,
+# based on the sample debian/rules file for GNU hello by Ian Jackson.
+
+# Uncomment this to turn on verbose mode. 
+#export DH_VERBOSE=1
+
+# This has to be exported to make some magic below work.
+export DH_OPTIONS
+
+# Enable hardening build flags, except:
+#  pie: causes build failure
+export DEB_BUILD_MAINT_OPTIONS=hardening=+all,-pie
+
+CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
+CFLAGS:=$(shell dpkg-buildflags --get CFLAGS)
+LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
+
+CFLAGS+=$(CPPFLAGS)
+
+# Perl mapscript requires CPPFLAGS & LDFLAGS in CFLAGS
+PERL_CFLAGS=$(CFLAGS)
+PERL_CFLAGS+=$(LDFLAGS)
+
+# Ruby mapscript fails to build with -Werror=format-security
+RUBY_CPPFLAGS=$(subst -Werror=format-security,,$(CFLAGS))
+RUBY_CPPFLAGS+=$(LDFLAGS)
+ 
+PYVERS=$(shell pyversions -r debian/control)
+RUBYVERS=1.8 1.9.1
+PHP5API=$(shell php-config5 --phpapi)
+MANPAGES:=$(wildcard debian/man/*.*.xml)
+
+MS_VERSION=$(shell dpkg-parsechangelog | sed -ne 's/^Version: \(.*\)-.*/\1/p')
+
+COMMON_CONFIG=	--prefix=/usr \
+		--with-gd=/usr \
+		--with-freetype=/usr \
+		--with-fribidi-config \
+		--with-gdal \
+		--with-ogr \
+		--with-proj \
+		--with-postgis \
+		--with-wcs \
+		--with-sos \
+		--with-wms \
+		--with-wmsclient \
+		--with-wfs \
+		--with-wfsclient \
+		--with-threads \
+		--with-geos \
+		--with-fastcgi \
+		--with-php \
+		--with-cairo \
+		--with-libsvg-cairo
+
+MS_CFLAGS=$(CFLAGS)
+MS_CXXFLAGS=$(CFLAGS)
+MS_CPPFLAGS=$(CPPFLAGS)
+MS_LDFLAGS=$(LDFLAGS)
+
+%:
+	dh $@ --with autoreconf,python2,pkgkde_symbolshelper
+
+override_dh_auto_clean:
+	dh_testdir
+
+	-$(RM) configure-stamp build-arch-stamp build-indep-stamp
+
+	-$(RM) tile4ms
+	[ ! -f $(CURDIR)/Makefile ] || $(MAKE) mapscriptvars 
+	touch mapscriptvars
+	[ ! -f $(CURDIR)/mapscript/perl/Makefile ] || $(MAKE) distclean -C $(CURDIR)/mapscript/perl
+	-$(RM) mapscript/perl/Makefile.PL
+	-cd mapscript/python && \
+	  for python in $(PYVERS); do $$python setup.py clean; done
+	-$(RM) -rf mapscript/python/build mapscript/python/Makefile
+	[ ! -f $(CURDIR)/mapscript/ruby/Makefile ] || $(MAKE) distclean -C $(CURDIR)/mapscript/ruby
+	-$(RM) -rf $(CURDIR)/mapscript/ruby/mapscript_wrap.c $(CURDIR)/mapscript/ruby/*mapscript.so
+	-$(RM) mapscriptvars libtool
+
+	-$(RM)  mapscript/perl/mapscript.i \
+		mapscript/tcl/mapscript.i \
+		mapscript/python/mapscript.i
+
+	touch config.log
+	[ ! -f $(CURDIR)/Makefile ] || $(MAKE) distclean
+
+	# Remove some generated files 
+	-$(RM) Makefile mapscript/java/Makefile
+	-$(RM) mapscript/csharp/Makefile mapscript/php/Makefile
+	-$(RM) config.log config.status
+
+	-$(RM) debian/.#* .#*
+
+	dh_prep
+
+	-$(RM) install-arch-stamp install-indep-stamp
+
+	-$(RM) -rf $(CURDIR)/debian/files
+	rm -f debian/*.debhelper.log
+	rm -f debian/man/*.1
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(COMMON_CONFIG) CFLAGS="$(MS_CFLAGS)" CXXFLAGS="$(MS_CXXFLAGS)" CPPFLAGS="$(MS_CPPFLAGS)" LDFLAGS="$(MS_LDFLAGS)"
+
+override_dh_auto_build:
+	dh_testdir
+
+	# Create man pages from DocBook XML
+	for x in $(MANPAGES) ; do \
+	  docbook2x-man $$x ; \
+	  mv `basename $$x | sed 's/.xml$$//'` `dirname $$x` ; \
+	done
+
+	dh_auto_build
+
+	# Perl mapscript
+	cd $(CURDIR)/mapscript/perl && \
+	  perl Makefile.PL INSTALLDIRS=vendor \
+	  && $(MAKE) LD_RUN_PATH="" OPTIMIZE="$(PERL_CFLAGS) -W -Wall"
+
+	# Python mapscript
+	cd $(CURDIR)/mapscript/python && \
+	  set -e; for python in $(PYVERS); do CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" $$python setup.py build; done
+
+	# Ruby mapscript
+	cd $(CURDIR)/mapscript/ruby && set -e ; \
+	  for v in $(RUBYVERS) ; do \
+	    ruby$$v extconf.rb --with-cppflags="$(RUBY_CPPFLAGS) " && $(MAKE) && \
+	      mv mapscript.so ruby$$v-mapscript.so ; \
+	  done
+
+override_dh_auto_test:
+	# msautotest submodule is not used
+
+override_dh_auto_install:
+	dh_auto_install
+
+	# Perl mapscript
+	cd $(CURDIR)/mapscript/perl && \
+        $(MAKE) install DESTDIR=$(CURDIR)/debian/libmapscript-perl
+
+	# Python mapscript
+	cd $(CURDIR)/mapscript/python && set -e ; \
+	  for python in $(PYVERS); do \
+	    $$python setup.py install --install-layout=deb --root=$(CURDIR)/debian/python-mapscript ; \
+	    $(RM) -f $(CURDIR)/debian/python-mapscript/usr/lib/$$python/dist-packages/mapscript.pyc ; \
+	  done
+
+	# Ruby mapscript
+	cd $(CURDIR)/mapscript/ruby && set -e ; \
+	  for v in $(RUBYVERS) ; do \
+	    ruby$$v extconf.rb --with-cppflags="$(RUBY_CPPFLAGS) " ; \
+	      $(MAKE) install sitedir=$(CURDIR)/debian/libmapscript-ruby$$v/usr/lib/ruby ; \
+	      $(MAKE) distclean ; \
+	  done
+
+	# removing embedded rpath in binaries
+	-find $(CURDIR)/debian/tmp/usr/bin -type f -not -name mapserver-config -exec chrpath --delete {} \;
+
+	# removing embedded rpath in libraries
+	-find $(CURDIR)/debian/python-mapscript/usr/ -name _mapscript.so -type f -exec chrpath --delete {} \;
+	-find $(CURDIR)/debian/libmapscript-ruby*/usr/lib/ruby/ -type f -exec chrpath --delete {} \;
+
+	# remove la file in php ext dir
+	-$(RM) -rf $(CURDIR)/debian/tmp/usr/lib/php5/$(PHP5API)/*.la
+
+	# empty dependency_libs in la file
+	sed -i "/dependency_libs/ s/'.*'/''/" $(CURDIR)/debian/tmp/usr/lib/*/libmapserver.la
+
+	# CGI mapserver
+	-mkdir -p debian/tmp/usr/lib/cgi-bin
+	install -m755 debian/tmp/usr/bin/mapserv debian/tmp/usr/lib/cgi-bin/mapserv
+
+	echo 'misc:Depends=phpapi-'$(PHP5API) >> debian/php5-mapscript.substvars
+
+	# libmapserver-dev headers
+	-mkdir -p debian/tmp/usr/include/mapserver/
+	install -m755 *.h debian/tmp/usr/include/mapserver/
+
+override_dh_installchangelogs:
+	dh_installchangelogs HISTORY.TXT
+
+override_dh_installexamples:
+	dh_installexamples
+
+	chmod a-x debian/php*-mapscript/usr/share/doc/php*-mapscript/examples/*.phtml
+
+override_dh_install:
+	dh_install --autodest --list-missing
+
+override_dh_compress:
+	dh_compress -X.xml -X.xsd -X.xsl
+
+override_dh_makeshlibs:
+	dh_makeshlibs -Xphp_mapscript -- -c0 -v$(MS_VERSION)
+
+override_dh_python2:
+	dh_python2 -ppython-mapscript
+
+override_dh_perl:
+	dh_perl -plibmapscript-perl
+

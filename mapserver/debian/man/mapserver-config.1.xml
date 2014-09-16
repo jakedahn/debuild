@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN" "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<refentry id='mapserver-config'>
+
+  <refmeta>
+    <refentrytitle>mapserver-config</refentrytitle>
+    <manvolnum>1</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>mapserver-config</refname>
+    <refpurpose>query mapserver build options</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv id='synopsis'>
+    <cmdsynopsis>
+      <command>mapserver-config</command>
+      <arg choice='opt'><option>--libs</option></arg>
+      <arg choice='opt'><option>--dep-libs</option></arg>
+      <arg choice='opt'><option>--cflags</option></arg>
+      <arg choice='opt'><option>--defines</option></arg>
+      <arg choice='opt'><option>--includes</option></arg>
+      <arg choice='opt'><option>--version</option></arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id='description'>
+    <title>DESCRIPTION</title>
+    <para>
+      <command>mapserver-config</command> allows querying the options used to
+      build the MapServer binaries.
+    </para>
+  </refsect1>
+
+  <refsect1 id='options'>
+    <title>OPTIONS</title>
+    <variablelist>
+
+      <varlistentry>
+        <term><option>--libs</option></term>
+        <listitem>
+          <para>
+            Libraries (SUP_LIBS)
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>--dep-libs</option></term>
+        <listitem>
+          <para>Libraries (LIBS)</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>--cflags</option></term>
+        <listitem>
+          <para>Compiler flags (CFLAGS)</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>--defines</option></term>
+        <listitem>
+          <para>Compiler defines (DEFINES/ALL_ENABLED)</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>--includes</option></term>
+        <listitem>
+          <para>Compiler includes (INCLUDES)</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><option>--version</option></term>
+        <listitem>
+          <para>MapServer version (MS_VERSION)</para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+  </refsect1>
+
+</refentry>

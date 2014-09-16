@@ -1,0 +1,35 @@
+#!/bin/sh
+
+set -e
+
+#DEBHELPER#
+
+if [ "$1" != "remove" ] && [ "$1" != "purge" ]; then
+	exit 0
+fi
+
+. /usr/share/debconf/confmodule
+
+phpver=php5
+
+for SAPI in `find /etc/$phpver/ -type d -maxdepth 1 -mindepth 1 | sed -e's#.*/##'`
+do
+	# Use the same question for all extensions, because it's only
+	# used once per package: right here.
+	if [ -f "/etc/$phpver/$SAPI/php.ini" -a  -f /etc/$phpver/$SAPI/conf.d/mapscript.ini ]; then
+		db_set $phpver-mapscript/remove_extension true
+		db_title "PHP"
+		db_subst $phpver-mapscript/remove_extension extname Mapscript
+		db_subst $phpver-mapscript/remove_extension sapiconfig $SAPI
+		db_input low $phpver-mapscript/remove_extension || true
+		db_go
+
+		db_get $phpver-mapscript/remove_extension
+		if [ "$RET" = "true" ]; then
+	        rm -f /etc/$phpver/$SAPI/conf.d/mapscript.ini
+		fi
+		db_fset $phpver-mapscript/remove_extension seen false
+	fi
+done
+
+exit 0

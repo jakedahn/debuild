@@ -1,0 +1,70 @@
+# mapserver translation to spanish
+# Copyright (C) 2008 Software in the Public Interest
+# This file is distributed under the same license as the mapserver package.
+# Changes:
+# - Initial translation
+# Ignacio Mondino <ignacio.mondino@gmail.com>, 2008
+# Traductores, si no conoce el formato PO, merece la pena leer la 
+# documentación de gettext, especialmente las secciones dedicadas a este
+# formato, por ejemplo ejecutando:
+# info -n '(gettext)PO Files'
+# info -n '(gettext)Header Entry'
+# Equipo de traducción al español, por favor lean antes de traducir
+# los siguientes documentos:
+# - El proyecto de traducción de Debian al español
+# http://www.debian.org/intl/spanish
+# especialmente las notas de traducción en
+# http://www.debian.org/intl/spanish/notas
+# - La guía de traducción de po's de debconf:
+# /usr/share/doc/po-debconf/README-trans
+# o http://www.debian.org/intl/l10n/po-debconf/README-trans
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 5.0.3-3\n"
+"Report-Msgid-Bugs-To: pkg-grass-devel@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2007-06-15 15:55+0200\n"
+"PO-Revision-Date: 2008-11-03 18:42-0200\n"
+"Last-Translator: Ignacio Mondino <ignacio.mondino@gmail.com>>\n"
+"Language-Team: Debian Spanish team <debian-l10n-spanish@lists.debian.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:1001
+msgid "Should ${extname} be added to /etc/php5/${sapiconfig}/php.ini?"
+msgstr "¿Debería añadirse ${extname} a «/etc/php5/${sapiconfig}/php.ini» ?"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:1001
+msgid ""
+"You are installing ${extname} support for php5 and it is not yet enabled in "
+"the configuration for the ${sapiconfig} SAPI. Enabling this extension will "
+"allow php5 scripts to use it."
+msgstr ""
+"Está instalando el soporte de ${extname} para php5 y este aún no está "
+"activado en la configuración de la SAPI de ${sapiconfig}. Activando esta "
+"extensión permitirá que los scripts de php5 la utilicen."
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:2001
+msgid "Should ${extname} be removed from /etc/php5/${sapiconfig}/php.ini?"
+msgstr "¿Debería eliminarse ${extname} de «/etc/php5/${sapiconfig}/php.ini»? "
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:2001
+msgid ""
+"You are removing ${extname} support for php5, but it is still enabled in the "
+"configuration for the ${sapiconfig} SAPI.  Leaving this in place will "
+"probably cause problems when trying to use PHP."
+msgstr ""
+"Está eliminando el soporte ${extname} de php5, pero todavía está activado en "
+"la configuración de la SAPI de ${sapiconfig}. Esta situación podría causar "
+"problemas al intentar utilizar PHP."

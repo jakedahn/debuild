@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: mapserver_5.0.0-3\n"
+"Report-Msgid-Bugs-To: pkg-grass-devel@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2007-06-15 15:55+0200\n"
+"PO-Revision-Date: 2007-12-20 21:58+0200\n"
+"Last-Translator: Esko Arajärvi <edu@iki.fi>\n"
+"Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Finnish\n"
+"X-Poedit-Country: Finland\n"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:1001
+msgid "Should ${extname} be added to /etc/php5/${sapiconfig}/php.ini?"
+msgstr "Tulisiko ${extname} lisätä tiedostoon /etc/php5/${sapiconfig}/php.ini?"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:1001
+msgid ""
+"You are installing ${extname} support for php5 and it is not yet enabled in "
+"the configuration for the ${sapiconfig} SAPI. Enabling this extension will "
+"allow php5 scripts to use it."
+msgstr ""
+"Olet asentamassa php5:lle ”${extname}”-tukea, eikä sitä ole vielä aktivoitu "
+"${sapiconfig} SAPIn asetuksissa. Tämän laajennoksen aktivoiminen sallii php5:"
+"n komentosarjojen käyttää sitä."
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:2001
+msgid "Should ${extname} be removed from /etc/php5/${sapiconfig}/php.ini?"
+msgstr ""
+"Tulisiko ${extname} poistaa tiedostosta /etc/php5/${sapiconfig}/php.ini?"
+
+#. Type: boolean
+#. Description
+#: ../php5-mapscript.templates:2001
+msgid ""
+"You are removing ${extname} support for php5, but it is still enabled in the "
+"configuration for the ${sapiconfig} SAPI.  Leaving this in place will "
+"probably cause problems when trying to use PHP."
+msgstr ""
+"Olet poistamassa php5:n ”${extname}”-tukea, mutta se on edelleen aktivoituna "
+"${sapiconfig} SAPIn asetuksissa. Tilanteen jättäminen nykyiselleen "
+"luultavasti aiheuttaa ongelmia yritettäessä käyttää PHP:ta."
