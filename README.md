@@ -1,27 +1,29 @@
 debuild
 =======
 
-This contains scripts and stuff needed to build custom .deb's needed
+This contains scripts and stuff needed to build some custom .deb's needed
 at Planet Labs.  Also a few notes here on how debian related stuff works.
 
+The "debuild" repo is normally utilized from within a "planet_common" vagrant
+environment.  Check out debuild in /vagrant. 
 
+  cd /vagrant
+  git clone git@github.com:planetlabs/debuild.git debuild
+  debuild/setup.sh
 
-Our .deb's depend on some ubuntugis debs.  So first add the UbuntuGIS PPA:
+Each of the deb subprojects should have a setup.sh script that needs to be
+run once to install required dev environment components, and a build script 
+for building the actual deb.  In most cases the build.sh takes as an argument
+the build name.  Identifying the next build name is sometimes a hassle.  
 
-  sudo apt-get install python-software-properties
-  sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
-  sudo apt-get update
-
-UbuntuGIS .deb's live at:
-
-  http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu/pool/main/
-
-Building GDAL .deb's in a Precise VM with support debs all allready installed.
-
-  mkdir -p ~/packages/
-  mkdir -p /vagrant/debs
-  cd debuild/gdal/
+  cd /vagrant/debuild/wjelement
   ./setup.sh
-  ./build.sh
+  ./build.sh 3pl
 
-The resulting .deb's are copied to /vagrant/debs
+Generally speaking, the newly created .debs are copied to $HOME/debs, and
+once you are satisfied they are safe to deploy, you can run upload.sh to 
+push them to staging.
+  
+  /vagrant/debild/upload.sh
+
+There are some idiosyncracies...
