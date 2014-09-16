@@ -4,3 +4,4 @@ mapows-contenttype.patch
 hardening.patch
 shp2img-typo.patch
 oracle-plugin.patch
+bilinear_resample.patch

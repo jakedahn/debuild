@@ -1,3 +1,9 @@
+mapserver (6.2.1-7pl) precise; urgency=high
+
+  * Add patch for https://github.com/mapserver/mapserver/issues/4993
+
+ -- Even Rouault <even.rouault@cosmogia.com>  Tue, 16 Sep 2014 23:21:00 +0200
+
 mapserver (6.2.1-6~precise1) precise; urgency=high
 
   * Launchpad build for Precise.

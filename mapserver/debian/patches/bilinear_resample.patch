@@ -1,0 +1,22 @@
+--- a/mapresample.c	2014-09-16 21:15:05.390285086 +0000
++++ b/mapresample.c	2014-09-16 21:18:11.675948407 +0000
+@@ -417,9 +417,6 @@
+       if( dfWeightSum == 0.0 )
+         continue;
+ 
+-      for( i = 0; i < bandCount; i++ )
+-        padfPixelSum[i] /= dfWeightSum;
+-
+       if( MS_RENDERER_PLUGIN(psSrcImage->format) ) {
+         assert(src_rb && dst_rb);
+ #ifdef USE_GD
+@@ -465,6 +462,9 @@
+         int band;
+         int dst_off = nDstX + nDstY * psDstImage->width;
+ 
++        for( i = 0; i < bandCount; i++ )
++            padfPixelSum[i] /= dfWeightSum;
++
+         MS_SET_BIT(psDstImage->img_mask,dst_off);
+ 
+         for( band = 0; band < psSrcImage->format->bands; band++ ) {
