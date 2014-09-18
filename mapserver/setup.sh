@@ -5,10 +5,12 @@ set -o errexit
 DEBUILD_TREE=`pwd`
 
 sudo apt-get install -y --force-yes \
-    libgd2-xpm-dev libfribidi-dev php5-dev ruby1.9.1 ruby1.9.1-dev sharutils \
+    libgd2-xpm-dev libfribidi-dev php5-dev sharutils \
     libsdl1.2-dev libfcgi-dev libogdi3.2-dev libxslt1-dev libpam0g-dev \
     libedit-dev pkg-kde-tools autoconf dh-autoreconf libsvg \
-    libsvg-cairo docbook2x docbook-xsl docbook-xml xsltproc
+    libsvg-cairo docbook2x docbook-xsl docbook-xml xsltproc \
+    swig python-all python-all-dev chrpath \
+    libepsilon-dev ruby1.8-dev ruby1.8
 
 
 mkdir -p $HOME/packages/mapserver
