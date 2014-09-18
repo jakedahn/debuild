@@ -2,7 +2,7 @@
 
 set -o errexit
 
-GDALBLD=/vagrant/packages/gdal/gdal
+GDALBLD=$HOME/packages/gdal/gdal
 ECWSDK=`pwd`/ecwjp2_sdk_minimal
 
 if test "x$1" = "x" ; then
@@ -63,7 +63,7 @@ dpkg-deb --build debwrk $DEB
 echo Created: $DEB
 
 ls -l *.deb
-rm -f /vagrant/debs/gdal-ecw*.deb
-mv *.deb /vagrant/debs
+rm -f $HOME/debs/gdal-ecw*.deb
+mv *.deb $HOME/debs
 
 

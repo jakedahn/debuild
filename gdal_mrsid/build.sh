@@ -2,7 +2,7 @@
 
 set -o errexit
 
-GDALBLD=/vagrant/packages/gdal/gdal
+GDALBLD=$HOME/packages/gdal/gdal
 MRSIDSDK=`pwd`/MrSID-Raster-8.5.0
 
 if test "x$1" = "x" ; then
@@ -63,7 +63,7 @@ dpkg-deb --build debwrk $DEB
 echo Created: $DEB
 
 ls -l *.deb
-rm -f /vagrant/debs/gdal-mrsid*.deb
-mv *.deb /vagrant/debs
+rm -f $HOME/debs/gdal-mrsid*.deb
+mv *.deb $HOME/debs
 
 

@@ -29,5 +29,5 @@ echo
 
 dpkg-buildpackage $FLAGS
 
-echo "Copy .debs to /vagrant/debs"
-cp ../*.deb /vagrant/debs
+echo "Copy .debs to $HOME/debs"
+cp ../*.deb $HOME/debs

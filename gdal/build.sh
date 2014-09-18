@@ -35,8 +35,8 @@ echo
 dpkg-buildpackage $FLAGS
 
 if $ORIG_DIR/testpackage.py ; then
-  echo "Copy .debs to /vagrant/debs"
-  cp ../*.deb /vagrant/debs
+  echo "Copy .debs to $HOME/debs"
+  cp ../*.deb $HOME/debs
 else
   echo "Job FAILED, no .debs copied."
   exit 1
