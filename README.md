@@ -26,8 +26,13 @@ the build name.  Identifying the next build name is sometimes a hassle.
 
 Generally speaking, the newly created .debs are copied to $HOME/debs, and
 once you are satisfied they are safe to deploy, you can run upload.sh to 
-push them to staging.
+push them to staging.  Note that in order to do this you will need to ssh
+into the vagrant VM in such a way that your keys (access pkg.planet-staging.com)
+is carried in.
+
 ```  
-  /vagrant/debild/upload.sh
+  vagrant ssh -- -A 
+  /vagrant/debuild/upload.sh
 ```
+
 There are some idiosyncracies...
