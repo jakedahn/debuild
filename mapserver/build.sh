@@ -7,6 +7,17 @@ if test `lsb_release -c | cut -f 2` != 'precise' ; then
   exit 1
 fi
 
+if test "$1" = "-h" -o "$1" = "--help"; then
+    echo "Usage: ./build.sh [-c]"
+    echo ""
+    echo "Options:"
+    echo "  -c : do a clean build"
+    exit 1
+fi
+
+ORIG_DIR=`dirname $0`
+BUILD_DIR=$HOME/packages/mapserver/mapserver-6.2.1
+
 FLAGS="-b -j5 -uc -us"
 if test "$1" != "-c" ; then
   FLAGS="$FLAGS -nc"
@@ -14,9 +25,9 @@ else
   shift 1
 fi
 
-ORIG_DIR=`pwd`
+cp -r $ORIG_DIR/debian $BUILD_DIR
 
-cd $HOME/packages/mapserver/mapserver-6.2.1
+cd $BUILD_DIR
 
 # Force some lightweight things to get redone even if we aren't doing a 
 # clean build.

@@ -25,7 +25,7 @@ fi
 if test ! -d mapserver-$VERSION; then
     tar xvzf mapserver-$VERSION.tar.gz
     cd mapserver-$VERSION
-    ln -s $DEBUILD_TREE/debian
+    cp -r $DEBUILD_TREE/debian .
 fi
 
 echo "Setup appears to be successful."
