@@ -10,7 +10,7 @@ sudo apt-get install -y --force-yes \
     libedit-dev pkg-kde-tools autoconf dh-autoreconf libsvg \
     libsvg-cairo docbook2x docbook-xsl docbook-xml xsltproc \
     swig python-all python-all-dev chrpath \
-    libepsilon-dev ruby1.8-dev ruby1.8
+    libepsilon-dev ruby1.8-dev ruby1.8 ruby1.9.1 ruby1.9.1-dev
 
 
 mkdir -p $HOME/packages/mapserver
