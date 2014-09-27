@@ -16,6 +16,17 @@ if test "$1" = "-h" -o "$1" = "--help"; then
 fi
 
 ORIG_DIR=`dirname $0`
+case $ORIG_DIR in
+    "/"*)
+        ;;
+    ".")
+        ORIG_DIR=`pwd`
+        ;;
+    *)
+        ORIG_DIR=`pwd`"/"`dirname $0`
+        ;;
+esac
+
 BUILD_DIR=$HOME/packages/mapserver/mapserver-6.2.1
 
 FLAGS="-b -j5 -uc -us"

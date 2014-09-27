@@ -1,3 +1,10 @@
+gdal (1.11.1-1pl) precise; urgency=high
+
+  * Update branches/1.11 to r27743 to incorporate fix for
+    http://trac.osgeo.org/gdal/ticket/5667
+
+ -- Even Rouault <even.rouault@cosmogia.com>  Sat, 27 Sep 2014 09:48:00 +0200
+
 gdal (1.11.0-16pl) precise; urgency=high
 
   * Use branches/1.11

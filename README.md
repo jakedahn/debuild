@@ -50,9 +50,32 @@ MapServer build
 The build actually takes place in $HOME/packages/mapserver/mapserver-6.2.1,
 into which /vagrant/debuild/mapserver/debian is copied each time ./build.sh is
 run. So do not edit directly into $HOME/packages/mapserver/mapserver-6.2.1/debian.
+Each time a new build is made the debuild/mapserver/debian/changelog should be updated
+to increase the version number.
 
 The -c flag of build.sh causes a clean build, otherwise only an incremental one
 will be done.
 
 In case of issues, deleting $HOME/packages/mapserver and running again ./setup.sh
+might be helpful.
+
+GDAL build
+==========
+
+```
+  cd /vagrant/debuild/gdal
+  ./setup.sh
+  ./build.sh [-c]
+```
+
+The build actually takes place in $HOME/packages/gdal/gdal,
+into which /vagrant/debuild/gdal/debian is copied each time ./build.sh is
+run. So do not edit directly into $HOME/packages/gdal/gdal/debian.
+
+The -c flag of build.sh causes a clean build, otherwise only an incremental one
+will be done. build.sh updates the GDAL sources from the GDAL 1.11 subversion branch.
+Each time a new build is made the debuild/gdal/debian/changelog should be updated
+to increase the version number.
+
+In case of issues, deleting $HOME/packages/gdal and running again ./setup.sh
 might be helpful.

@@ -27,7 +27,7 @@ cd gdal
 if test ! -d gdal ; then
   svn checkout http://svn.osgeo.org/gdal/branches/1.11/gdal
   cd gdal
-  ln -s $DEBUILD_TREE/debian
+  cp -r $DEBUILD_TREE/debian .
 fi
 
 echo "Setup appears to be successful."
