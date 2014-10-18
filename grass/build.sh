@@ -36,6 +36,7 @@ if test "$CLEAN" = "YES" ; then
       --without-opengl \
       --with-freetype-includes=/usr/include/freetype2 \
       --enable-largefile \
+      --with-sqlite \
       --without-tcltk
 fi
 
