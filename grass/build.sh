@@ -25,7 +25,11 @@ if test "x$1" = "x" ; then
 fi
 
 PACKAGING=$1
-DEB=grass_7.0.svn-${PACKAGING}_amd64.deb
+
+# Also change grass version in control.debian!
+GRASS_VER=7.0.0beta3
+
+DEB=grass_${GRASS_VER}-${PACKAGING}_amd64.deb
 
 cd grass
 
@@ -52,7 +56,7 @@ cd ..
 mkdir -p debwrk/DEBIAN
 sed 's/@@@PACKAGING@@@/'$PACKAGING'/g' control.debian > debwrk/DEBIAN/control
 mkdir -p debwrk/etc/ld.so.conf.d
-echo "/usr/grass-7.0.svn/lib" > debwrk/etc/ld.so.conf.d/grass.conf
+echo "/usr/grass-${GRASS_VER}/lib" > debwrk/etc/ld.so.conf.d/grass.conf
 cp postinst.debian debwrk/DEBIAN/postinst
 
 rm -f grass_*.deb

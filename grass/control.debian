@@ -1,5 +1,5 @@
 Package: grass
-Version: 7.0.svn-@@@PACKAGING@@@
+Version: 7.0.0beta3-@@@PACKAGING@@@
 Architecture: amd64
 Maintainer: Frank Warmerdam <warmerdam@pobox.com>
 Installed-Size: 755
