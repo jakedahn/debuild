@@ -1,3 +1,10 @@
+gdal (1.11.1-7pl) precise; urgency=high
+
+  * Update branches/1.11 to r27931 to incorporate fix for
+    http://trac.osgeo.org/gdal/ticket/5730 (ref T1068)
+
+ -- Even Rouault <even.rouault@cosmogia.com>  Thu, 07 Nov 2014 14:27:00 +0100
+
 gdal (1.11.1-6pl) precise; urgency=high
 
   * Update branches/1.11 to r27899 to incorporate fix for
