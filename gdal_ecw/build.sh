@@ -40,14 +40,14 @@ gcc \
     -L$ECWSDK/redistributable/x64 -lNCSEcw \
     -o gdal_ECW.so
 
-DEB=gdal-ecw_1.11.0-${PACKAGING}_amd64.deb
+DEB=gdal-ecw_1.99.0-${PACKAGING}_amd64.deb
 
 rm -rf debwrk
 
 mkdir debwrk
 
-mkdir -p debwrk/usr/lib/gdalplugins/1.11
-cp gdal_ECW.so debwrk/usr/lib/gdalplugins/1.11
+mkdir -p debwrk/usr/lib/gdalplugins/2.0
+cp gdal_ECW.so debwrk/usr/lib/gdalplugins/2.0
 
 mkdir -p debwrk/usr/lib
 cp $ECWSDK/redistributable/x64/libNCSEcw.so.5.0.1 debwrk/usr/lib

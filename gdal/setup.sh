@@ -25,7 +25,7 @@ if test ! -d gdal ; then
 fi
 cd gdal
 if test ! -d gdal ; then
-  svn checkout http://svn.osgeo.org/gdal/branches/1.11/gdal
+  svn checkout http://svn.osgeo.org/gdal/trunk/gdal
   cd gdal
   cp -r $DEBUILD_TREE/debian .
 fi

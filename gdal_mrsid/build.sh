@@ -41,14 +41,14 @@ gcc \
     -L$MRSIDSDK/lib -lltidsdk -lgeotiff \
     -o gdal_MrSID.so
 
-DEB=gdal-mrsid_1.11.0-${PACKAGING}_amd64.deb
+DEB=gdal-mrsid_1.99.0-${PACKAGING}_amd64.deb
 
 rm -rf debwrk
 
 mkdir debwrk
 
-mkdir -p debwrk/usr/lib/gdalplugins/1.11
-cp gdal_MrSID.so debwrk/usr/lib/gdalplugins/1.11
+mkdir -p debwrk/usr/lib/gdalplugins/2.0
+cp gdal_MrSID.so debwrk/usr/lib/gdalplugins/2.0
 
 mkdir -p debwrk/usr/lib
 cp $MRSIDSDK/lib/libltidsdk.so.8 debwrk/usr/lib
