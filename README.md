@@ -73,9 +73,19 @@ into which /vagrant/debuild/gdal/debian is copied each time ./build.sh is
 run. So do not edit directly into $HOME/packages/gdal/gdal/debian.
 
 The -c flag of build.sh causes a clean build, otherwise only an incremental one
-will be done. build.sh updates the GDAL sources from the GDAL 1.11 subversion branch.
+will be done. build.sh updates the GDAL sources from the GDAL subversion trunk
+(2.0dev at that time).
 Each time a new build is made the debuild/gdal/debian/changelog should be updated
 to increase the version number.
 
 In case of issues, deleting $HOME/packages/gdal and running again ./setup.sh
 might be helpful.
+
+After upgrading and uploading GDAL to a new version with incompatible C++ ABI,
+a dummy commit touching the following components must be done to force a rebuild:  
+  - planet_common/cplusplus/gdal_cmo
+  - planet_common/cplusplus/gcps2rpc
+  - planet_common/cplusplus/cloudmask
+  - plcompositor
+The GDAL ECW and MrSID plugins must also be rebuilt
+
