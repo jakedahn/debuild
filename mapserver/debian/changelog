@@ -1,3 +1,10 @@
+mapserver (6.2.1-8pl) precise; urgency=high
+
+  * Add patch for https://github.com/mapserver/mapserver/pull/5052
+    Fixes https://phab.planet-labs.com/T1240, T1241 and partly T1242
+
+ -- Even Rouault <even.rouault@cosmogia.com>  Tue, 16 Dec 2014 16:42:00 +0100
+
 mapserver (6.2.1-7pl) precise; urgency=high
 
   * Add patch for https://github.com/mapserver/mapserver/issues/4993

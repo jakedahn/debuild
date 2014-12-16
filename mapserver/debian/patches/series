@@ -5,3 +5,5 @@ hardening.patch
 shp2img-typo.patch
 oracle-plugin.patch
 bilinear_resample.patch
+mapproject_projections_differs_ticket5052.patch
+mapresample_ticket5052.patch
