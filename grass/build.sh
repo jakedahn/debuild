@@ -27,7 +27,7 @@ fi
 PACKAGING=$1
 
 # Also change grass version in control.debian!
-GRASS_VER=7.0.0beta3
+GRASS_VER=7.0.svn
 
 DEB=grass_${GRASS_VER}-${PACKAGING}_amd64.deb
 
