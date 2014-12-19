@@ -16,6 +16,7 @@ if test ! -d grass ; then
 
   # This avoids linking against a full library path making things non-movable
   #patch -p0 < patches/VECTORDEPS.patch
+  patch -p0 < patches/r_out_gdal_colorinterpretation.patch
 fi
 
 sudo apt-get install -y --force-yes \
