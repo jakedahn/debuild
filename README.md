@@ -89,3 +89,22 @@ a dummy commit touching the following components must be done to force a rebuild
   - plcompositor
 The GDAL ECW and MrSID plugins must also be rebuilt
 
+GRASS build
+===========
+
+```
+  cd /vagrant/debuild/grass
+  ./setup.sh
+  ./build.sh [-c] Xpl
+```
+
+The build actually takes place in /vagrant/debuild/grass.
+
+The -c flag of build.sh causes a clean build, otherwise only an incremental one
+will be done.
+
+After upgrading and uploading GRASS, a dummy commit touching the following
+components must be done to force GRASS to be updated on Jenkins:  
+  - programs/rectify/grass-modules.yml
+  - programs/rectify/worker-rectify.yml
+
