@@ -1,3 +1,10 @@
+gdal (1.99.0-2pl) precise; urgency=high
+
+  * Update to r28303  to incorporate fix for
+    http://trac.osgeo.org/gdal/ticket/5801 (ref T1366)
+
+ -- Even Rouault <even.rouault@cosmogia.com>  Thu, 07 Jan 2015 12:27:00 +0100
+
 gdal (1.99.0-1pl) precise; urgency=high
 
   * Update to GDAL 2.0dev trunk r28122 for RasterIO resampling algorithms (ref T1170)
