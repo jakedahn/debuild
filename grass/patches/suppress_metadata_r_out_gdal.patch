@@ -1,0 +1,90 @@
+Index: grass/raster/r.out.gdal/local_proto.h
+===================================================================
+--- grass/raster/r.out.gdal/local_proto.h	(révision 64027)
++++ grass/raster/r.out.gdal/local_proto.h	(copie de travail)
+@@ -56,7 +56,7 @@
+ /* export_band.c */
+ int export_band(GDALDatasetH, int, const char *, 
+ 		const char *, struct Cell_head *, RASTER_MAP_TYPE, 
+-		double, int);
++		double, int, int, int);
+ int exact_checks(GDALDataType, const char *, const char *,
+                  struct Cell_head *, RASTER_MAP_TYPE, double,
+ 		 const char *, int);
+Index: grass/raster/r.out.gdal/main.c
+===================================================================
+--- grass/raster/r.out.gdal/main.c	(révision 64027)
++++ grass/raster/r.out.gdal/main.c	(copie de travail)
+@@ -114,7 +114,7 @@
+ {
+ 
+     struct GModule *module;
+-    struct Flag *flag_l, *flag_c, *flag_f, *flag_t;
++    struct Flag *flag_l, *flag_c, *flag_f, *flag_t, *flag_r, *flag_g;
+     struct Option *input, *format, *type, *output, *createopt, *metaopt,
+ 	*nodataopt;
+ 
+@@ -158,6 +158,14 @@
+     flag_f->label = _("Force raster export despite any warnings of data loss");
+     flag_f->description = _("Overrides nodata safety check");
+ 
++    flag_r = G_define_flag();
++    flag_r->key = 'r';
++    flag_r->description = _("Do not write COLOR_TABLE_RULES_xxxx metadata item");
++
++    flag_g = G_define_flag();
++    flag_g->key = 'g';
++    flag_g->description = _("Do not write Generated_with metadata item");
++
+     input = G_define_standard_option(G_OPT_R_INPUT);
+     input->description = _("Name of raster map (or group) to export");
+ 
+@@ -594,7 +602,7 @@
+ 	retval = export_band
+ 	    (hCurrDS, band + 1, ref.file[band].name,
+ 	     ref.file[band].mapset, &cellhead, maptype, nodataval,
+-	     flag_c->answer);
++	     flag_c->answer, flag_r->answer, flag_g->answer);
+ 
+ 	/* read/write error */
+ 	if (retval == -1) {
+Index: grass/raster/r.out.gdal/export_band.c
+===================================================================
+--- grass/raster/r.out.gdal/export_band.c	(révision 64027)
++++ grass/raster/r.out.gdal/export_band.c	(copie de travail)
+@@ -202,7 +202,8 @@
+ int export_band(GDALDatasetH hMEMDS, int band,
+ 		const char *name, const char *mapset,
+ 		struct Cell_head *cellhead, RASTER_MAP_TYPE maptype,
+-		double nodataval, int suppress_main_colortable)
++		double nodataval, int suppress_main_colortable,
++		int suppress_color_rules, int suppress_generated_with)
+ {
+     struct Colors sGrassColors;
+     GDALColorTableH hCT;
+@@ -237,8 +238,10 @@
+ 	Rast_get_fp_range_min_max(&sRange, &dfCellMin, &dfCellMax);
+     }
+ 
+-    sprintf(value, "GRASS GIS %s", GRASS_VERSION_NUMBER);
+-    GDALSetMetadataItem(hBand, "Generated_with", value, NULL);
++    if (!suppress_generated_with ) {
++	sprintf(value, "GRASS GIS %s", GRASS_VERSION_NUMBER);
++	GDALSetMetadataItem(hBand, "Generated_with", value, NULL);
++    }
+ 
+     /* use default color rules if no color rules are given */
+     if (Rast_read_colors(name, mapset, &sGrassColors) >= 0) {
+@@ -311,6 +314,12 @@
+ 
+ 	    GDALSetRasterColorTable(hBand, hCT);
+ 	}
++	
++	if (suppress_color_rules) {
++	    /* Setting rcount to 0 prevents below code to export
++	       COLOR_TABLE_RULES_xxx metadata items */
++	    rcount = 0;
++	}
+ 
+ 	if (rcount > 0) {
+ 	    /* Create metadata entries for color table rules */

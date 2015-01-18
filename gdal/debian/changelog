@@ -1,3 +1,11 @@
+gdal (1.99.0-3pl) precise; urgency=high
+
+  * Update to r28330  to incorporate fix for memory leak in RasterIO resampling (ref T1459),
+    and invalid access window when operating on a raster with overviews
+    (http://trac.osgeo.org/gdal/ticket/5808).
+
+ -- Even Rouault <even.rouault@cosmogia.com>  Thu, 18 Jan 2015 16:15:00 +0100
+
 gdal (1.99.0-2pl) precise; urgency=high
 
   * Update to r28303  to incorporate fix for
