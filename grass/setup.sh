@@ -3,7 +3,7 @@
 set -o errexit
 
 DEBUILD_TREE=`pwd`
-UPSTREAM_TARBALL=http://grass.osgeo.org/grass70/source/grass-7.0.0beta3.tar.gz
+UPSTREAM_TARBALL=http://grass.osgeo.org/grass70/source/grass-7.0.0RC1.tar.gz
 
 TARBALL=`basename $UPSTREAM_TARBALL`
 if test ! -f $TARBALL ; then
@@ -16,7 +16,7 @@ if test ! -d grass ; then
 
   # This avoids linking against a full library path making things non-movable
   #patch -p0 < patches/VECTORDEPS.patch
-  patch -p0 < patches/r_out_gdal_colorinterpretation.patch
+  patch -p0 < patches/suppress_metadata_r_out_gdal.patch
 fi
 
 sudo apt-get install -y --force-yes \
