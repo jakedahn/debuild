@@ -1,3 +1,10 @@
+gdal (1.99.0-4pl) precise; urgency=high
+
+  * Update to r28497 to have Dataset.ReadAsArray() with buf_xsize, buf_ysize parameters (ref T1687)
+    (http://trac.osgeo.org/gdal/changeset/28497).
+
+ -- Even Rouault <even.rouault@cosmogia.com>  Thu, 16 Feb 2015 12:36:00 +0100
+
 gdal (1.99.0-3pl) precise; urgency=high
 
   * Update to r28330  to incorporate fix for memory leak in RasterIO resampling (ref T1459),
