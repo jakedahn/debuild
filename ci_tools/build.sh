@@ -176,11 +176,13 @@ case "${action}" in
             setup_build
             # build_package wjelement wjelement-pl
             # build_package gdal gdal-bin
-            build_package gdal_mrsid gdal-mrsid
-            build_package gdal_ecw gdal-ecw
+            # build_package gdal_mrsid gdal-mrsid
+            # build_package gdal_ecw gdal-ecw
+            # build_package mapserver mapserver-bin
+
+            build_package grass grass
             # build_package opencv opencv-pl
             # build_package flann libflann1
-            # build_package mapserver mapserver-bin
         fi
         ;;
 

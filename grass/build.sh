@@ -2,6 +2,8 @@
 
 set -o errexit
 
+VERSION=$(cat $(dirname $0)/VERSION)
+
 if test `lsb_release -c | cut -f 2` != 'precise' ; then
   echo "Not running on Ubuntu precise, shouldn't you be?"
   exit 1
@@ -26,10 +28,7 @@ fi
 
 PACKAGING=$1
 
-# Also change grass version in control.debian!
-GRASS_VER=7.0.svn
-
-DEB=grass_${GRASS_VER}-${PACKAGING}_amd64.deb
+DEB=grass_${VERSION}-${PACKAGING}_amd64.deb
 
 cd grass
 
@@ -55,8 +54,10 @@ cd ..
 
 mkdir -p debwrk/DEBIAN
 sed 's/@@@PACKAGING@@@/'$PACKAGING'/g' control.debian > debwrk/DEBIAN/control
+sed -i debwrk/DEBIAN/control -e 's/@@@VERSION@@@/'$VERSION'/g'
+
 mkdir -p debwrk/etc/ld.so.conf.d
-echo "/usr/grass-${GRASS_VER}/lib" > debwrk/etc/ld.so.conf.d/grass.conf
+echo "/usr/grass-${VERSION}/lib" > debwrk/etc/ld.so.conf.d/grass.conf
 cp postinst.debian debwrk/DEBIAN/postinst
 
 rm -f grass_*.deb
