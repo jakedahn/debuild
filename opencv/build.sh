@@ -31,7 +31,7 @@ DEBUILD_TREE=$(readlink -f $(dirname $0))
 OPENCV_URL=https://github.com/Itseez/opencv/archive/3.0.0-alpha.tar.gz
 
 OPENCV_TGZ=${DEBUILD_TREE}/opencv-$(basename $OPENCV_URL)
-OPENCV_SRC=${DEBUILD_TREE}/opencv-$(basename $OPENCV_TGZ .tar.gz)
+OPENCV_SRC=${DEBUILD_TREE}/$(basename $OPENCV_TGZ .tar.gz)
 
 # only download opencv tgz if we haven't already
 if [ ! -f $OPENCV_TGZ ]; then
