@@ -55,7 +55,7 @@ make install prefix=$PREP_TREE/usr PROJSHARE=/usr/share/proj
 popd
 #./post_install_fixes.py
 
-sed -i debwrk/usr/bin/grass70 -e "s#$(readlink -f ${BASE_DIR})##g"
+sed -i debwrk/usr/bin/grass70 -e "s#$(readlink -f ${BASE_DIR})/debwrk##g"
 
 mkdir -p debwrk/DEBIAN
 sed 's/@@@PACKAGING@@@/'$PACKAGING'/g' control.debian > debwrk/DEBIAN/control
