@@ -13,6 +13,13 @@ if test "x$1" = "x" ; then
   exit 1
 fi
 
+CLEAN=NO
+if test "$1" = "-c"; then
+    echo "I don't really honor clean.  Sorry."
+    CLEAN=YES
+    shift 1
+fi
+
 PACKAGING=$1
 
 if test `lsb_release -c | cut -f 2` != 'precise' ; then
