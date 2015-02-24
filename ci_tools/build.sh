@@ -88,7 +88,7 @@ function setup_sources() {
     sudo apt-get update -y
 }
 
-function setup_precise_sources()
+function setup_precise_sources() {
     cat > /tmp/planet.list <<EOF
 deb [arch=amd64] http://planet-ubuntu.s3.amazonaws.com/ubuntu/ precise main restricted
 deb [arch=amd64] http://planet-ubuntu.s3.amazonaws.com/ubuntu/ precise-updates main restricted
@@ -106,6 +106,13 @@ deb https://planet-ubuntu.s3.amazonaws.com/68f0d2b37079/ppa/ubuntugis/ubuntugis-
 EOF
 
     sudo cp /tmp/planet.list /etc/apt/sources.list
+}
+
+function setup_trusty_sources() {
+    cat > /tmp/planet.list <<EOF
+deb https://aptly.planet-staging.com/b79c437d-58be-4ac3-b2b1-b9f333a714af/ trusty staging
+EOF
+    sudo cp /tmp/planet.list /etc/apt/sources.list.d/planet.list
 }
 
 function setup_git() {
