@@ -27,7 +27,7 @@ function setup_build() {
     # ?!
     [ -d ${HOME}/debs ] && rm -rf ${HOME}/debs
     mkdir -p ${HOME}/debs
-    sudo apt-get install -y devscripts dpkg-dev # for dch, dpkg-parsechangelog
+    sudo apt-get install -y build-essential devscripts dpkg-dev cmake
 }
 
 function build_package() {
@@ -71,21 +71,41 @@ function setup_sources() {
     find_dist
     dist=${_RET}
 
-    echo "Setting up for distro ${dist}"
+    case ${dist} in
+        precise)
+            setup_precise_sources
+            ;;
+        trusty)
+            setup_trusty_sources
+            ;;
+        *)
+            echo "Don't know how to build packages for ${dist}"
+            exit 1
+            ;;
+    esac
 
-    cat > /tmp/planet.list <<EOF
-deb https://aptly.planet-staging.com/4fc661f6-078a-4c31-bb4d-750f9a124a0e/ ${dist} staging
-deb https://apt.planet-staging.com/ubuntu/ ${dist}-backports main restricted universe multiverse
-EOF
-
-    if [ "${dist}" == "precise" ]; then
-        cat >> /tmp/planet.list <<EOF
-deb https://planet-ubuntu.s3.amazonaws.com/68f0d2b37079/ppa/ubuntugis/ubuntugis-unstable/ubuntu ${dist} main
-EOF
-    fi
-
-    sudo cp /tmp/planet.list /etc/apt/source.list.d
+    sudo rm -rf /etc/apt/sources.list.d/*
     sudo apt-get update -y
+}
+
+function setup_precise_sources()
+    cat > /tmp/planet.list <<EOF
+deb [arch=amd64] http://planet-ubuntu.s3.amazonaws.com/ubuntu/ precise main restricted
+deb [arch=amd64] http://planet-ubuntu.s3.amazonaws.com/ubuntu/ precise-updates main restricted
+deb [arch=amd64] http://planet-ubuntu.s3.amazonaws.com/ubuntu/ precise universe
+deb [arch=amd64] http://planet-ubuntu.s3.amazonaws.com/ubuntu/ precise-updates universe
+deb [arch=amd64] http://planet-ubuntu.s3.amazonaws.com/ubuntu/ precise multiverse
+deb [arch=amd64] http://planet-ubuntu.s3.amazonaws.com/ubuntu/ precise-updates multiverse
+deb [arch=amd64] http://planet-ubuntu.s3.amazonaws.com/ubuntu/ precise-backports main restricted universe multiverse
+
+deb https://planet-ubuntu.s3.amazonaws.com/68f0d2b37079/ppa/ubuntugis/ubuntugis-unstable/ubuntu/ precise main
+
+deb https://aptly.planet-staging.com/4fc661f6-078a-4c31-bb4d-750f9a124a0e/ precise staging
+deb https://apt.planet-staging.com/ubuntu/ ${dist}-backports main restricted universe multiverse
+deb https://planet-ubuntu.s3.amazonaws.com/68f0d2b37079/ppa/ubuntugis/ubuntugis-unstable/ubuntu precise main
+EOF
+
+    sudo cp /tmp/planet.list /etc/apt/sources.list
 }
 
 function setup_git() {
@@ -159,11 +179,12 @@ case "${action}" in
             ssh ${sshargs} ubuntu@${ip} /opt/ci/$(basename $0) prep remote
         else
             fixup_perms
-            # setup_sources
+            setup_sources
             setup_git
             git_checkout rpedde debuild trusty
-            git_checkout planetlabs planet_common master
-            setup_common
+            # git_checkout planetlabs planet_common master
+            # setup_common
+            setup_build
         fi
         ;;
 
@@ -173,13 +194,12 @@ case "${action}" in
         if [ "${ip}" != "remote" ]; then
             ssh ${sshargs} ubuntu@${ip} /opt/ci/$(basename $0) build remote
         else
-            setup_build
-            # build_package wjelement wjelement-pl
-            # build_package gdal gdal-bin
-            # build_package gdal_mrsid gdal-mrsid
-            # build_package gdal_ecw gdal-ecw
-            # build_package mapserver mapserver-bin
-            # build_package grass grass
+            build_package wjelement wjelement-pl
+            build_package gdal gdal-bin
+            build_package gdal_mrsid gdal-mrsid
+            build_package gdal_ecw gdal-ecw
+            build_package mapserver mapserver-bin
+            build_package grass grass
 
             build_package opencv opencv-pl
             # build_package flann libflann1
