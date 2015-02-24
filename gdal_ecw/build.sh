@@ -2,7 +2,7 @@
 
 set -o errexit
 
-VERSION=$(cat $(dirname $0/VERSION))
+VERSION=$(cat $(dirname $0)/VERSION)
 GDALBLD=$HOME/packages/gdal/gdal
 ECWSDK=`pwd`/ecwjp2_sdk_minimal
 
