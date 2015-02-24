@@ -3,19 +3,22 @@
 set -o errexit
 
 VERSION=$(cat $(dirname $0)/VERSION)
+BASE_DIR=$(dirname $0)
 
 if test `lsb_release -c | cut -f 2` != 'precise' ; then
   echo "Not running on Ubuntu precise, shouldn't you be?"
   exit 1
 fi
 
-PREP_TREE=`pwd`/debwrk
+PREP_TREE=${BASE_DIR}/debwrk
+pushd ${BASE_DIR}
 
 if test "$1" = "-c" ; then
   CLEAN=YES
   shift 1
 fi
-if test  \! -f grass/config.status ; then
+
+if [ ! -f grass/config.status ]; then
   CLEAN=YES
 fi
 
@@ -30,7 +33,7 @@ PACKAGING=$1
 
 DEB=grass_${VERSION}-${PACKAGING}_amd64.deb
 
-cd grass
+pushd grass
 
 if test "$CLEAN" = "YES" ; then
   make distclean || echo "distclean failed..."
@@ -49,8 +52,10 @@ rm -rf $PREP_TREE
 mkdir -p $PREP_TREE/usr
 make install prefix=$PREP_TREE/usr PROJSHARE=/usr/share/proj
 
-cd ..
-./post_install_fixes.py
+popd
+#./post_install_fixes.py
+
+sed -i debwrk/usr/bin/grass70 -e "s/$(readlink -f ${BASE_DIR})//"
 
 mkdir -p debwrk/DEBIAN
 sed 's/@@@PACKAGING@@@/'$PACKAGING'/g' control.debian > debwrk/DEBIAN/control
@@ -66,8 +71,4 @@ dpkg-deb --build debwrk $DEB
 echo Created: $DEB
 
 cp $DEB $HOME/debs
-
-
-
-
-
+popd
