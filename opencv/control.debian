@@ -7,4 +7,3 @@ Depends: libstdc++6, zlib1g, libtiff4, libjpeg-dev, libjasper-dev, libpng12-dev
 Section: science
 Priority: extra
 Description: Planet Labs Minimalist OpenCV
-

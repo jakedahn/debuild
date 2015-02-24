@@ -1,9 +1,9 @@
 #!/bin/bash
 
-set -o errexit
+set -e
+set -u
 
-VERSION=2.4.6.1
-SETH=s
+VERSION=$(cat $(dirname $0)/VERSION)
 
 if test `lsb_release -c | cut -f 2` != 'precise' ; then
   echo "Not running on Ubuntu precise, shouldn't you be?"
@@ -24,18 +24,20 @@ fi
 
 PACKAGING=$1
 
-DEBUILD_TREE=`pwd`
+DEBUILD_TREE=$(readlink -f $(dirname $0))
 
-OPENCV_URL=/home/ubuntu/opencv-${VERSION}${SETH}.tar.gz
 
-OPENCV_TGZ=`basename $OPENCV_URL`
-OPENCV_SRC=`basename $OPENCV_TGZ .tar.gz`
+#OPENCV_URL=/home/ubuntu/opencv-${VERSION}${SETH}.tar.gz
+OPENCV_URL=https://github.com/Itseez/opencv/archive/3.0.0-alpha.tar.gz
+
+OPENCV_TGZ=${DEBUILD_TREE}/$(basename $OPENCV_URL)
+OPENCV_SRC=${DEBUILD_TREE}/$(basename $OPENCV_TGZ .tar.gz)
 
 # only download opencv tgz if we haven't already
 if [ ! -f $OPENCV_TGZ ]; then
-  cp $OPENCV_URL $OPENCV_TGZ
-  # if we download a new TGZ, make sure the old unziped version was deleted
-  rm -rf $OPENCV_SRC
+    wget $OPENCV_URL
+    # if we download a new TGZ, make sure the old unziped version was deleted
+    rm -rf $OPENCV_SRC
 fi
 
 # only extract opencv tgz to /tmp if we haven't already
@@ -46,7 +48,7 @@ fi
 sudo apt-get install -y --force-yes \
     autoconf2.13 cmake curl make
 
-PREP_TREE=`pwd`/debwrk
+PREP_TREE=${DEBUILD_TREE}/debwrk
 
 DEB=opencv-pl_${VERSION}-${PACKAGING}_amd64.deb
 
@@ -54,7 +56,7 @@ if test \! -f cmake_config.log ; then
   CLEAN=YES
 fi
 
-cd $OPENCV_SRC
+pushd $OPENCV_SRC
 
 if test "$CLEAN" = "YES" ; then
   cmake -D CMAKE_INSTALL_PREFIX=$PREP_TREE/usr/local/pl . |& tee ../cmake_config.log
@@ -68,7 +70,7 @@ mkdir -p $PREP_TREE/usr/local/pl
 
 make install
 
-cd ..
+popd
 
 mkdir -p debwrk/DEBIAN
 sed 's/@@@PACKAGING@@@/'$PACKAGING'/g' control.debian \
@@ -84,8 +86,3 @@ dpkg-deb --build debwrk $DEB
 echo Created: $DEB
 
 cp $DEB $HOME/debs
-
-
-
-
-

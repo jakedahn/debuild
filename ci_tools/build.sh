@@ -179,9 +179,9 @@ case "${action}" in
             # build_package gdal_mrsid gdal-mrsid
             # build_package gdal_ecw gdal-ecw
             # build_package mapserver mapserver-bin
+            # build_package grass grass
 
-            build_package grass grass
-            # build_package opencv opencv-pl
+            build_package opencv opencv-pl
             # build_package flann libflann1
         fi
         ;;
