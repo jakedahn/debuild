@@ -1,5 +1,5 @@
 Package: gdal-ecw
-Version: 1.99.0-@@@PACKAGING@@@
+Version: @@@VERSION@@@-@@@PACKAGING@@@
 Architecture: amd64
 Maintainer: Frank Warmerdam <warmerdam@pobox.com>
 Installed-Size: 755

@@ -2,6 +2,7 @@
 
 set -o errexit
 
+VERSION=$(cat $(dirname $0/VERSION))
 GDALBLD=$HOME/packages/gdal/gdal
 ECWSDK=`pwd`/ecwjp2_sdk_minimal
 
@@ -56,6 +57,7 @@ cp $ECWSDK/redistributable/x64/libNCSEcw.so.5.0.1 debwrk/usr/lib
 
 mkdir -p debwrk/DEBIAN
 sed 's/@@@PACKAGING@@@/'$PACKAGING'/g' ../control.debian > debwrk/DEBIAN/control
+sed -i debwrk/DEBIAN/control -e 's/@@@VERSION@@@/'$VERSION'/g'
 
 rm -f $DEB
 dpkg-deb --build debwrk $DEB
