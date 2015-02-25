@@ -4,6 +4,8 @@ set -e
 set -u
 set -x
 
+REMOTE_USER=${REMOTE_USER:-ubuntu}
+
 function find_dist() {
     if [ ! -x /usr/bin/lsb_release ]; then
         sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes lsb-release
@@ -14,7 +16,7 @@ function find_dist() {
 }
 
 function fixup_perms() {
-    sudo chown ubuntu: -R /opt
+    sudo chown $REMOTE_USER: -R /opt
 }
 
 function setup_common() {
@@ -116,15 +118,15 @@ EOF
 }
 
 function setup_git() {
-    mkdir -p /home/ubuntu/.ssh
-    chmod 700 /home/ubuntu/.ssh
+    mkdir -p /home/${REMOTE_USER}/.ssh
+    chmod 700 /home/${REMOTE_USER}/.ssh
 
-    ssh-keyscan -t rsa github.com >> /home/ubuntu/.ssh/known_hosts
+    ssh-keyscan -t rsa github.com >> /home/${REMOTE_USER}/.ssh/known_hosts
 
-    chown -R ubuntu: /home/ubuntu/.ssh
-    chmod 600 /home/ubuntu/.ssh/known_hosts
+    chown -R ${REMOTE_USER}: /home/${REMOTE_USER}/.ssh
+    chmod 600 /home/${REMOTE_USER}/.ssh/known_hosts
 
-    [ -f /home/ubuntu/.ssh/config ] && rm /home/ubuntu/.ssh/config
+    [ -f /home/${REMOTE_USER}/.ssh/config ] && rm /home/${REMOTE_USER}/.ssh/config
 
     if [ ! -x /usb/bin/git ]; then
         sudo DEBIAN_FRONTEND=noninteractive apt-get install git -y --force-yes
@@ -162,19 +164,19 @@ case "${action}" in
     deploy)
         ip=$2
 
-        ssh ${sshargs} ubuntu@${ip} 'sudo mkdir -p /opt/ci && sudo chown ubuntu: /opt/ci'
-        scp ${sshargs} $0 ubuntu@${ip}:/opt/ci/$(basename $0)
-        ssh ${sshargs} ubuntu@${ip} chmod 755 /opt/ci/$(basename $0)
+        ssh ${sshargs} ${REMOTE_USER}@${ip} "sudo mkdir -p /opt/ci && sudo chown ${REMOTE_USER}: /opt/ci"
+        scp ${sshargs} $0 ${REMOTE_USER}@${ip}:/opt/ci/$(basename $0)
+        ssh ${sshargs} ${REMOTE_USER}@${ip} chmod 755 /opt/ci/$(basename $0)
         ;;
 
     clean)
         ip=$2
 
         if [ "${ip}" != "remote" ]; then
-            ssh ${sshargs} ubuntu@${ip} sudo /opt/ci/$(basename $0) clean remote
+            ssh ${sshargs} ${REMOTE_USER}@${ip} sudo /opt/ci/$(basename $0) clean remote
         else
             [ -d /opt ] && rm -rf /opt/
-            [ -f /home/ubunu/.ssh/known_hosts ] && rm /home/ubuntu/.ssh/known_hosts
+            [ -f /home/ubunu/.ssh/known_hosts ] && rm /home/${REMOTE_USER}/.ssh/known_hosts
             [ -f /root/.ssh/known_hosts ] && rm /root/.ssh/known_hosts
         fi
         ;;
@@ -183,12 +185,12 @@ case "${action}" in
         ip=$2
 
         if [ "${ip}" != "remote" ]; then
-            ssh ${sshargs} ubuntu@${ip} /opt/ci/$(basename $0) prep remote
+            ssh ${sshargs} ${REMOTE_USER}@${ip} REMOTE_USER=${REMOTE_USER} /opt/ci/$(basename $0) prep remote
         else
             fixup_perms
             setup_sources
             setup_git
-            git_checkout rpedde debuild trusty
+            git_checkout planetlabs debuild trusty
             # git_checkout planetlabs planet_common master
             # setup_common
             setup_build
@@ -199,7 +201,7 @@ case "${action}" in
         ip=$2
 
         if [ "${ip}" != "remote" ]; then
-            ssh ${sshargs} ubuntu@${ip} /opt/ci/$(basename $0) build remote
+            ssh ${sshargs} ${REMOTE_USER}@${ip} /opt/ci/$(basename $0) build remote
         else
             build_package wjelement wjelement-pl
             build_package gdal gdal-bin
