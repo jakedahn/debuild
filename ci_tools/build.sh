@@ -185,12 +185,13 @@ case "${action}" in
         ip=$2
 
         if [ "${ip}" != "remote" ]; then
-            ssh ${sshargs} ${REMOTE_USER}@${ip} REMOTE_USER=${REMOTE_USER} /opt/ci/$(basename $0) prep remote
+            ssh ${sshargs} ${REMOTE_USER}@${ip} "REMOTE_USER=${REMOTE_USER} /opt/ci/$(basename $0) prep remote"
+
         else
             fixup_perms
             setup_sources
             setup_git
-            git_checkout planetlabs debuild trusty
+            git_checkout rpedde debuild trusty
             # git_checkout planetlabs planet_common master
             # setup_common
             setup_build

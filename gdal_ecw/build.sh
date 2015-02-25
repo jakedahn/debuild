@@ -22,10 +22,6 @@ fi
 
 PACKAGING=$1
 
-if test `lsb_release -c | cut -f 2` != 'precise' ; then
-  echo "Not running on Ubuntu precise, shouldn't you be?"
-  exit 1
-fi
 
 if test ! -f $GDALBLD/.libs/libgdal.so ; then
   echo "GDAL does not appear to be built at $GDALBLD"

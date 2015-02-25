@@ -6,10 +6,6 @@ set -o xtrace
 VERSION=1.0.1
 PREP_TREE=`pwd`/debwrk
 
-if test `lsb_release -c | cut -f 2` != 'precise' ; then
-  echo "Not running on Ubuntu precise, shouldn't you be?"
-  exit 1
-fi
 
 CLEAN=NO
 if test "$1" = "-c" ; then

@@ -2,10 +2,6 @@
 
 set -o errexit
 
-if test `lsb_release -c | cut -f 2` != 'precise' ; then
-  echo "Not running on Ubuntu precise, shouldn't you be?"
-  exit 1
-fi
 
 if test "$1" = "-h" -o "$1" = "--help"; then
     echo "Usage: ./build.sh [-c]"

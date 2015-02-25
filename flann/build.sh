@@ -6,10 +6,6 @@ set -o xtrace
 SETH=s
 VERSION=1.8.4
 
-if test `lsb_release -c | cut -f 2` != 'precise' ; then
-  echo "Not running on Ubuntu precise, shouldn't you be?"
-  exit 1
-fi
 
 if test "$1" = "-c" ; then
   CLEAN=YES
